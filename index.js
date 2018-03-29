@@ -19,5 +19,9 @@ if (cluster.isMaster) {
     res.send('Hi');
   });
 
+  app.get('/fast', (req, res) => {
+    res.send('Fast');
+  })
+
   app.listen(3000);
 }
