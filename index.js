@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const worker = require('webworker-threads').Worker;
 
 function doWork(duration) {
   const start = Date.now();
@@ -7,8 +8,24 @@ function doWork(duration) {
 }
 
 app.get('/', (req, res) => {
-  doWork(5000);
-  res.send('Hi');
+  var worker = new Worker(function() {
+    this.onmessage = function() {
+      let counter = 0;
+
+      while (counter < 1e9) {
+        counter++;
+      }
+
+      postMessage(counter);
+    }
+  });
+
+  worker.onmessage = function(myCounter) {
+    console.log(myCounter)
+  }
+
+  worker.postMessage();
+
 });
 
 app.get('/fast', (req, res) => {
