@@ -1,16 +1,17 @@
 const puppeteer = require('puppeteer');
 
-test('Add two numbers', () => {
-  const sum = 1 + 2;
+let browser, page;
 
-  expect(sum).toEqual(3);
+beforeEach(() => {
+  browser = await puppeteer.launch({
+    headless: false
+  });
+  page = await browser.newPage();
+  await page.goto('localhost:3000');
 });
 
 test('Launch a browser successfully', async () => {
-  const browser = await puppeteer.launch({
-    headless: false
-  });
-  const page = await browser.newPage();
+  const text = await page.$eval('a.brand-logo', el => el.innerHTML);
 
-  await page.goto('localhost:3000');
+  expect(text).toEqual('Blogster');
 });
