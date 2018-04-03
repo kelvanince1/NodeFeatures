@@ -2,12 +2,16 @@ const puppeteer = require('puppeteer');
 
 let browser, page;
 
-beforeEach(() => {
+beforeEach(async () => {
   browser = await puppeteer.launch({
     headless: false
   });
   page = await browser.newPage();
   await page.goto('localhost:3000');
+});
+
+afterEach(async () => {
+  await browser.close();
 });
 
 test('Launch a browser successfully', async () => {
