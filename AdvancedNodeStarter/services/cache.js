@@ -22,7 +22,7 @@ mongoose.Query.prototype.exec = async function() {
   const key = JSON.stringify(
     Object.assign({}, this.getQuery(), {
       collection: this.mongooseCollection.name
-    })
+    }));
 
     // See if we have a value for 'key' in Redis
     const cacheValue = await client.hget(this.hashKey, key);
@@ -37,7 +37,7 @@ mongoose.Query.prototype.exec = async function() {
     }
 
     // Otherwise, issue the query and store result in Redis
-    await result = await exec.apply(this, arguments);
+    const result = await exec.apply(this, arguments);
 
     client.hset(this.hashKey, key, JSON.stringify(result), 'EX', 10);
 
