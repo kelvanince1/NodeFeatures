@@ -14,8 +14,16 @@ afterEach(async () => {
   await browser.close();
 });
 
-test('Launch a browser successfully', async () => {
+test('The header has the correct text', async () => {
   const text = await page.$eval('a.brand-logo', el => el.innerHTML);
 
   expect(text).toEqual('Blogster');
+});
+
+test('Clicking login starts oAuth flow', async () => {
+  await page.click('.right a');
+
+  const url = await page.url();
+
+  expect(url).toMatch(/accounts\.google\.com/);
 });
