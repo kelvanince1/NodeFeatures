@@ -13,4 +13,8 @@ afterEach(async () => {
 
 test('Login and navigate to blog create form', async () => {
   await page.login();
+  await page.click('a.btn-floating');
+
+  const label = await page.getContentsOf('form label');
+  expect(label).toEqual('Blog Title');
 });
