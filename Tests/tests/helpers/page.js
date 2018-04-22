@@ -5,8 +5,9 @@ const userFactory = require('../factories/userFactory');
 class CustomPage {
   static async build() {
     const browser = await puppeteer.launch({
-      headless: false,
-      slowMo: 150
+      headless: true,
+      slowMo: 150,
+      args: ['--no-sandbox']
     });
 
     const page = await browser.newPage();
