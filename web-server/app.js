@@ -4,10 +4,23 @@ const fs = require('fs');
 // Send data using pipe
 http.createServer(function(req, res) {
   res.writeHead(200, {
-    'Content': 'text/html'
+    'Content': 'application/json'
   });
-  fs.createReadStream(__dirname + '/index.html').pipe(res);
+  const obj = {
+    firstName: 'John',
+    lastName: 'Doe'
+  };
+  res.end(JSON.stringify(obj));
 }).listen(1337, '127.0.0.1');
+
+
+// Send data using pipe
+// http.createServer(function(req, res) {
+//   res.writeHead(200, {
+//     'Content': 'text/html'
+//   });
+//   fs.createReadStream(__dirname + '/index.html').pipe(res);
+// }).listen(1337, '127.0.0.1');
 
 
 // Read data as html file
