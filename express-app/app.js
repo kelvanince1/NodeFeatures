@@ -19,8 +19,10 @@ app.get('/api', function(req, res) {
   res.json({ firstName: 'John', lastName: 'Doe' })
 });
 
-app.post('/api', function(req, res) {
-  res.json({ firstName: 'John', lastName: 'Doe' })
+app.post('/api', urlencodedParser, function(req, res) {
+  res.send('Thanks');
+  console.log(req.body.firstName);
+  console.log(req.body.lastName);
 });
 
 app.get('/api/:id', function(req, res) {
