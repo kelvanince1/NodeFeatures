@@ -1,10 +1,10 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var config = require('./config');
-var setupController = require('./controllers/setupController');
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const config = require('./config');
+const setupController = require('./controllers/setupController');
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 app.use('/assets', express.static(__dirname + '/public'));
 
