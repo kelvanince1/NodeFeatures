@@ -1,7 +1,9 @@
-const { username, password } = require('./config');
+var configValues = require('./config');
 
 module.exports = {
-  getDbConnectionString: () => {
-    return `mongodb://${username}:${password}@ds125871.mlab.com:25871/js-course-db`
-  };
-};
+
+    getDbConnectionString: function() {
+        return 'mongodb://' + configValues.uname + ':' + configValues.pwd + '@ds125871.mlab.com:25871/js-course-db';
+    }
+
+}
