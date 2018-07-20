@@ -30,7 +30,7 @@ const john = Person({
 john.save(function(err) {
 	if (err) throw err;
 
-	console.log('Person saved');
+	console.log('Person saved to database');
 });
 
 app.use('/assets', express.static(__dirname + '/public'));
