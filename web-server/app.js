@@ -4,6 +4,7 @@ const fs = require('fs');
 // Handle paths
 http.createServer(function(req, res) {
   if (req.url === '/') {
+    console.log('Hitting the home path');
     fs.createReadStream(__dirname + '/index.html').pipe(res);
   }
   if (req.url === '/api') {

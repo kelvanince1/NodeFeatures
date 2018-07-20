@@ -6,6 +6,14 @@ const jsonParser = bodyParser.json();
 
 const app = express();
 
+app.use(express.json());
+app.use(function(req, res, next) {
+  console.log('Logging');
+  // This next method moves the control to the next middleware function.
+  // Without this, the request will just hang
+  next();
+});
+
 const port = process.env.PORT || 3000;
 
 app.use('/assets', express.static(__dirname + '/public'));
