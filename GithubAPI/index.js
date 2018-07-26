@@ -14,11 +14,13 @@ function displayCommits(commits) {
   console.log(commits);
 }
 
-function getUser(id, callback) {
-  setTimeout(() => {
-    console.log('Reading a user from the database...');
-    callback({ id: id, gitHubUsername: 'kelvan' });
-  }, 2000);
+function getUser(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('Reading a user from the database...');
+      resolve({ id: id, gitHubUsername: 'kelvan' });
+    }, 2000);
+  });
 }
 
 function getRepos(username, callback) {
