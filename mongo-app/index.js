@@ -51,4 +51,44 @@ async function getCourses() {
   console.log('RES', res);
 }
 
-getCourses();
+// getCourses();
+
+
+async function updateCourse(id) {
+  // Query first approach using find by id and modify its properties
+  const res = await Course.update({_id: id}, {
+    $set: {
+      author: 'Kelvan',
+      isPublished: false
+    }
+  });
+
+  console.log(res);
+
+  //Update first, updating data directly
+  // course.set({
+  //   isPublished: true,
+  //   author: 'Another author'
+  // });
+}
+// async function updateCourse(id) {
+//   // Query first approach using find by id and modify its properties
+//   const res = await Course.findById(id);
+//   if (!course) {
+//     return;
+//   }
+//
+//   course.isPublished = true;
+//   course.author = 'Another author';
+//
+//   const result = await course.save();
+//   console.log(result);
+//
+//   //Update first, updating data directly
+//   // course.set({
+//   //   isPublished: true,
+//   //   author: 'Another author'
+//   // });
+// }
+
+updateCourse('5a68fe2142ae6a6482c4c9cb');
