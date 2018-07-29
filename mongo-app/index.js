@@ -40,8 +40,14 @@ async function createCourse() {
 // in
 // nin - not in
 
+// To use regex with Mongo, we can replace a string with /^{string}/ if we want the regex to start with that string.
+// If the regex is to end with that string, we can use /{string}$/
+// If the regex string is somewhere in the strin but you're unsure where, we can use /.*{string}.*/
+
 async function getCourses() {
-  const res = await Course.find();
+  const res = await Course.find({
+    price: { $gt: 10 } // replace the value with a $ to signify the greater than operator and the value to be used to draw the comparison.
+  });
   console.log('RES', res);
 }
 
