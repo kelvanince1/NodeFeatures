@@ -64,13 +64,19 @@ async function updateCourse(id) {
   });
 
   console.log(res);
-
-  //Update first, updating data directly
-  // course.set({
-  //   isPublished: true,
-  //   author: 'Another author'
-  // });
 }
+
+// updateCourse('5a68fe2142ae6a6482c4c9cb');
+
+async function removeCourse(id) {
+  const res = await Course.deleteOne({
+    _id: id
+  });
+  console.log(res);
+};
+
+removeCourse('5a68fe2142ae6a6482c4c9cb');
+
 // async function updateCourse(id) {
 //   // Query first approach using find by id and modify its properties
 //   const res = await Course.findById(id);
@@ -90,5 +96,3 @@ async function updateCourse(id) {
 //   //   author: 'Another author'
 //   // });
 // }
-
-updateCourse('5a68fe2142ae6a6482c4c9cb');
