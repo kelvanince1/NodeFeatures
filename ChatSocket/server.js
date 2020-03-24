@@ -13,6 +13,18 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+server.listen(3000);
+
+const rooms = {};
+
+app.get('/', (req, res) => {
+    res.render('index', { rooms: rooms });
+});
+
+app.get('/:room', (req, res) => {
+    res.render('room', { roomName: req.params.room });
+});
+
 const users = {};
 
 io.on('connection', socket => {
