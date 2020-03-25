@@ -15,7 +15,7 @@ app.use(express.urlencoded({
 
 server.listen(3000);
 
-const rooms = {};
+const rooms = { name: {} };
 
 app.get('/', (req, res) => {
     res.render('index', { rooms: rooms });
