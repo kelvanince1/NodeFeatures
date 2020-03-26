@@ -13,9 +13,15 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-server.listen(3000);
-
 const rooms = { name: {} };
+
+app.post('/room', (req, res) => {
+    if (rooms[req.body.room] != null) {
+        return res.redirect('/');
+    }
+    rooms[req.body.room] = {  users: {} };
+    res.redirect(req.body.room);
+});
 
 app.get('/', (req, res) => {
     res.render('index', { rooms: rooms });
@@ -24,6 +30,8 @@ app.get('/', (req, res) => {
 app.get('/:room', (req, res) => {
     res.render('room', { roomName: req.params.room });
 });
+
+server.listen(3000);
 
 const users = {};
 

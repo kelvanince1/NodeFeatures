@@ -12,7 +12,10 @@
             <div><%= room %></div>
             <a href="/<%= room %>">Join</a>
         <% }) %>
-        })
+        <form action="/room" method="POST">
+            <input name="room" type="text" required>
+            <button type="submit">New room</button>
+        </form>
     </div>
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script defer src="script.js"></script>
