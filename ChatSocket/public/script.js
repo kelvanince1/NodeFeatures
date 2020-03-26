@@ -7,13 +7,13 @@ const roomContainer = document.getElementById('room-container');
 if (messageForm) {
     const name = prompt('What is your name?');
     appendMessage('You joined');
-    socket.emit('new-user', name);
+    socket.emit('new-user', roomName, name);
 
     messageForm.addEventListener('submit', e => {
         e.preventDefault();
         const message = messageInput.value;
         appendMessage(`You: ${message}`);
-        socket.emit('send-chat-message', message);
+        socket.emit('send-chat-message', roomName, message);
     
         messageInput.value = '';
     });

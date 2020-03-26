@@ -13,7 +13,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-const rooms = { name: {} };
+const rooms = {};
 
 app.post('/room', (req, res) => {
     if (rooms[req.body.room] != null) {
@@ -21,6 +21,8 @@ app.post('/room', (req, res) => {
     }
     rooms[req.body.room] = {  users: {} };
     res.redirect(req.body.room);
+
+    io.emit('room-created', req.body.room);
 });
 
 app.get('/', (req, res) => {
@@ -36,19 +38,33 @@ app.get('/:room', (req, res) => {
 
 server.listen(3000);
 
-const users = {};
-
 io.on('connection', socket => {
-    socket.on('new-user', name => {
-        users[socket.id] = name;
-        socket.broadcast.emit('user-connected', name);
+    socket.on('new-user', (room, name) => {
+        socket.join(room);
+        rooms[room].users[socket.id] = name;
+        socket.to(room).broadcast.emit('user-connected', name);
     });
-    socket.on('send-chat-message', message => {
-        socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] });
+    socket.on('send-chat-message', (room, message) => {
+        socket.to(room).broadcast.emit('chat-message', { 
+            message: message,
+            name: rooms[room].users[socket.id] 
+        });
     });
     socket.on('disconnect', () => {
-        socket.broadcast.emit('user-disconnected', users[socket.id]);
-        delete users[socket.id];
+        getUserRooms(socket)
+            .forEach(room => {
+                socket.broadcast.emit('user-disconnected', rooms[room].users[socket.id]);
+                delete rooms[room].users[socket.id];
+            })
     });
 });
 
+function getUserRooms(socket) {
+    return Object.entries(rooms).reduce((names, [name, room]) => {
+        if (room.users[socket.id]) {
+            names.push(name);
+        }
+
+        return names;
+    }, []);
+}
