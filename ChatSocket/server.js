@@ -28,6 +28,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:room', (req, res) => {
+    if (!rooms[req.params.room]) {
+        return res.redirect('/');
+    }
     res.render('room', { roomName: req.params.room });
 });
 
